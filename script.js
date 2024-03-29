@@ -16,10 +16,11 @@ select.addEventListener('click', () => {
     createNewGrid();
 })
 
+let currentColor = 'black';
 
 function createGridCells() {
     let isMouseDown = false;
-    
+
     for (let i = 0; i < (numSquares * numSquares); i++) {
         let grid = document.createElement('div');
         grid.style.width = `${GRIDLENGTH / numSquares - 2}px`;
@@ -47,14 +48,36 @@ function createGridCells() {
 }
 
 function changeBackgroundColor(grid) {
-    grid.style.backgroundColor = 'black';
+    if (currentColor === 'black') {
+        grid.style.backgroundColor = 'black';
+    } else if (currentColor === 'rainbow') {
+        grid.style.backgroundColor = getRandomColor();
+    }
+    
 }
+
+
 
 function createNewGrid() {
     container.textContent = '';
     createGridCells();
 }
 
+const reset = document.querySelector('.reset') 
+reset.addEventListener('click', createNewGrid);
+
+const rainbow = document.querySelector('.rainbow');
+rainbow.addEventListener('click', () => {
+    currentColor = 'rainbow';
+})
+
+function getRandomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
 
 createGridCells();
 

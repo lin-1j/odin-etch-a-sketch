@@ -1,5 +1,4 @@
 * {
-
     margin: 0px;
     padding: 0px;
 }
@@ -50,8 +49,8 @@ button:hover {
 }
 
 .container {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 15px;
+    margin-bottom: 20px;
 
     display: flex;
     flex-wrap: wrap;
@@ -64,7 +63,6 @@ button:hover {
 .footer {
     display: flex;
     flex-direction: row;
-    margin-top: 15px;
     width: 500px;
     justify-content: space-between;
 }
