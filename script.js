@@ -16,7 +16,10 @@ select.addEventListener('click', () => {
     createNewGrid();
 })
 
+
 function createGridCells() {
+    let isMouseDown = false;
+    
     for (let i = 0; i < (numSquares * numSquares); i++) {
         let grid = document.createElement('div');
         grid.style.width = `${GRIDLENGTH / numSquares - 2}px`;
@@ -24,13 +27,27 @@ function createGridCells() {
 
         grid.classList.add('grid');
         container.appendChild(grid);
+        
+        
+        grid.addEventListener('mousedown', () => {
+            isMouseDown = true;
+            changeBackgroundColor(grid);
+        });
+        grid.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+        grid.addEventListener('mouseover', () => {
+            if (isMouseDown) {
+                changeBackgroundColor(grid);
+            }
+        });
 
-        grid.addEventListener('mouseover', changeBackgroundColor);
+
     }
 }
 
-function changeBackgroundColor() {
-    this.style.backgroundColor = 'black';
+function changeBackgroundColor(grid) {
+    grid.style.backgroundColor = 'black';
 }
 
 function createNewGrid() {
