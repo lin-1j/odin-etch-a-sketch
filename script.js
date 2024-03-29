@@ -14,7 +14,13 @@ function createGridCells() {
 
         grid.classList.add('grid');
         container.appendChild(grid);
+
+        grid.addEventListener('mouseover', changeBackgroundColor);
     }
 }
 
 createGridCells();
+
+function changeBackgroundColor() {
+    this.style.backgroundColor = 'black';
+}
