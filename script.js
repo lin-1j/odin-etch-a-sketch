@@ -9,17 +9,23 @@ let select = document.querySelector('#select');
 select.addEventListener('click', () => {
     numSquares = prompt("Enter the number of squares per side: (1-30)");
 
-    while (!(numSquares <= 30 && numSquares >= 1)) {
+    while (numSquares !== null && !(numSquares <= 30 && numSquares >= 1)) {
         numSquares = prompt("Enter the number of squares per side: (1-30)");
     }
 
-    createNewGrid();
+    if (numSquares !== null) {
+        createNewGrid();
+    }
 })
 
 let currentColor = 'black';
 let isMouseDown = false;
 
 function createGridCells() {
+    if (numSquares === null) {
+        numSquares = 16;
+    }
+    
     for (let i = 0; i < (numSquares * numSquares); i++) {
         let grid = document.createElement('div');
         grid.style.width = `${GRIDLENGTH / numSquares - 2}px`;
