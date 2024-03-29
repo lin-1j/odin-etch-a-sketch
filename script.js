@@ -17,10 +17,9 @@ select.addEventListener('click', () => {
 })
 
 let currentColor = 'black';
+let isMouseDown = false;
 
 function createGridCells() {
-    let isMouseDown = false;
-
     for (let i = 0; i < (numSquares * numSquares); i++) {
         let grid = document.createElement('div');
         grid.style.width = `${GRIDLENGTH / numSquares - 2}px`;
@@ -28,7 +27,6 @@ function createGridCells() {
 
         grid.classList.add('grid');
         container.appendChild(grid);
-        
         
         grid.addEventListener('mousedown', () => {
             isMouseDown = true;
@@ -42,8 +40,6 @@ function createGridCells() {
                 changeBackgroundColor(grid);
             }
         });
-
-
     }
 }
 
@@ -52,11 +48,17 @@ function changeBackgroundColor(grid) {
         grid.style.backgroundColor = 'black';
     } else if (currentColor === 'rainbow') {
         grid.style.backgroundColor = getRandomColor();
+    } else if (currentColor === 'progressive') {
+        if (grid.style.backgroundColor == '') {
+            grid.style.backgroundColor = 'black';
+            grid.style.opacity = 0.1;
+        } else if (grid.style.opacity >= 0.1 && grid.style.opacity < 1) {
+            grid.style.opacity = getProgressiveColor(grid);
+        }
+        
     }
     
 }
-
-
 
 function createNewGrid() {
     container.textContent = '';
@@ -77,6 +79,22 @@ function getRandomColor() {
     let b = Math.floor(Math.random() * 256);
 
     return `rgb(${r}, ${g}, ${b})`;
+}
+
+const black = document.querySelector('.black'); 
+black.addEventListener('click', () => {
+    currentColor = 'black';
+})
+
+const progressive = document.querySelector('.progressive'); 
+progressive.addEventListener('click', () => {
+    currentColor = 'progressive';
+})
+
+function getProgressiveColor(grid) {
+    let opacity = parseFloat(grid.style.opacity);
+    opacity += 0.1;
+    return opacity;
 }
 
 createGridCells();
